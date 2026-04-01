@@ -1,0 +1,57 @@
+import React, { useState } from "react";
+import API from "../services/api";
+
+const Auth = ({ setUser }) => {
+  const [isSignup, setIsSignup] = useState(true);
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const url = isSignup ? "/auth/signup" : "/auth/login";
+      const res = await API.post(url, form);
+
+      if (!isSignup) {
+        localStorage.setItem("token", res.data.token);
+        setUser(res.data.user);
+      }
+
+      alert("Success!");
+    } catch (err) {
+      alert(err.response?.data?.msg || "Error");
+    }
+  };
+
+  return (
+    <div>
+      <h2>{isSignup ? "Signup" : "Login"}</h2>
+
+      <form onSubmit={handleSubmit}>
+        {isSignup && (
+          <input
+            placeholder="Name"
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+        )}
+        <input
+          placeholder="Email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+        <input
+          placeholder="Password"
+          type="password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <button onClick={() => setIsSignup(!isSignup)}>
+        Switch to {isSignup ? "Login" : "Signup"}
+      </button>
+    </div>
+  );
+};
+
+export default Auth;
