@@ -18,6 +18,7 @@ const Auth = ({ setUser }) => {
 
       if (!isSignup) {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         setUser(res.data.user);
         navigate("/feed");
       }
@@ -26,9 +27,9 @@ const Auth = ({ setUser }) => {
     } catch (err) {
       alert(err.response?.data?.msg || "Error");
     }
-  };
+};
 
-  return (
+return (
     <div className="auth-container">
       <div className="auth-card">
         <h2>{isSignup ? "Create Account" : "Welcome Back"}</h2>

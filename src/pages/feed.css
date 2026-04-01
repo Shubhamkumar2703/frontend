@@ -1,5 +1,25 @@
 body {
-  background: #f0f2f5;
+  background: #fafafa;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.profile {
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .feed-container {
@@ -8,74 +28,62 @@ body {
   padding: 20px;
 }
 
-.create-post {
+/* CREATE POST */
+.create-post-btn {
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
   background: white;
-  padding: 10px;
-  border-radius: 12px;
+  border-radius: 15px;
   margin-bottom: 20px;
-}
-
-.create-post input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 14px;
-}
-
-.create-post button {
-  background: #0095f6;
-  border: none;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 8px;
   cursor: pointer;
+  font-size: 30px;
+  color: #0095f6;
 }
 
+/* POST CARD */
 .post-card {
   background: white;
   border-radius: 15px;
-  padding: 15px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #ddd;
 }
 
 .post-header {
+  padding: 10px;
   font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.post-content {
-  margin-bottom: 10px;
-}
-
-.post-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.like-btn, .comment-btn {
-  color: #0095f6;
-  background-color: transparent;
-  border-radius: 5px;
-  border: none;
-    cursor: pointer;
-padding: 10px 15px;
-
-}   
-
-
-.like-btn:hover {
-  color: blue;
-}
-
-.comment-box {
-  margin-top: 10px;
 }
 
 .post-image {
   width: 100%;
-  border-radius: 10px;
-  margin-top: 10px;
+}
+
+.post-actions {
+  padding: 10px;
+}
+
+.post-actions button {
+  border: none;
+  background: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* COMMENTS */
+.comment-section {
+  padding: 10px;
+}
+
+.comment {
+  font-size: 14px;
+}
+
+.comment-input {
+  display: flex;
+  gap: 10px;
+}
+
+.comment-input input {
+  flex: 1;
 }

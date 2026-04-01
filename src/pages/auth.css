@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #fd5949, #d6249f, #285AEB);
 }
 
 .auth-container {
@@ -12,14 +12,12 @@ body {
 }
 
 .auth-card {
-  backdrop-filter: blur(15px);
-  background: rgba(255, 255, 255, 0.1);
+  background: white;
   padding: 40px;
-  width: 320px;
   border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  color: white;
+  width: 320px;
   text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
 .auth-card h2 {
@@ -30,29 +28,23 @@ body {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  border-radius: 8px;
-  border: none;
-  outline: none;
+  border-radius: 10px;
+  border: 1px solid #ddd;
 }
 
 .auth-card button {
   width: 100%;
   padding: 12px;
-  background: #ff4b2b;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.auth-card button:hover {
-  background: #ff416c;
 }
 
 .toggle-text {
   margin-top: 15px;
+  color: #0095f6;
   cursor: pointer;
-  font-size: 14px;
 }
