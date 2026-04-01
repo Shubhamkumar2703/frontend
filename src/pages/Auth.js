@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import API from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const Auth = ({ setUser }) => {
   const [isSignup, setIsSignup] = useState(true);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +17,7 @@ const Auth = ({ setUser }) => {
       if (!isSignup) {
         localStorage.setItem("token", res.data.token);
         setUser(res.data.user);
+        navigate("/feed");
       }
 
       alert("Success!");
