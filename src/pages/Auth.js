@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import API from "../services/api";
 import { useNavigate } from "react-router-dom";
+import API from "../services/api";
+import "./auth.css";
 
 const Auth = ({ setUser }) => {
+  const navigate = useNavigate();
+
   const [isSignup, setIsSignup] = useState(true);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,32 +29,40 @@ const Auth = ({ setUser }) => {
   };
 
   return (
-    <div>
-      <h2>{isSignup ? "Signup" : "Login"}</h2>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2>{isSignup ? "Create Account" : "Welcome Back"}</h2>
 
-      <form onSubmit={handleSubmit}>
-        {isSignup && (
+        <form onSubmit={handleSubmit}>
+          {isSignup && (
+            <input
+              placeholder="Full Name"
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
+          )}
+
           <input
-            placeholder="Name"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            placeholder="Email"
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
-        )}
-        <input
-          placeholder="Email"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          placeholder="Password"
-          type="password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
 
-        <button type="submit">Submit</button>
-      </form>
+          <input
+            placeholder="Password"
+            type="password"
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
 
-      <button onClick={() => setIsSignup(!isSignup)}>
-        Switch to {isSignup ? "Login" : "Signup"}
-      </button>
+          <button type="submit">
+            {isSignup ? "Sign Up" : "Login"}
+          </button>
+        </form>
+
+        <p onClick={() => setIsSignup(!isSignup)} className="toggle-text">
+          {isSignup
+            ? "Already have an account? Login"
+            : "New here? Create account"}
+        </p>
+      </div>
     </div>
   );
 };

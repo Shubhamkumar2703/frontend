@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
+import { uploadImage } from "../services/upload";
+import "./feed.css";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [text, setText] = useState("");
+  const [image, setImage] = useState(null);
 
   const fetchPosts = async () => {
     const res = await API.get("/posts");
@@ -15,8 +18,16 @@ const Feed = () => {
   }, []);
 
   const createPost = async () => {
-    await API.post("/posts", { text });
+    let imageUrl = "";
+
+    if (image) {
+      imageUrl = await uploadImage(image); // upload to cloudinary
+    }
+
+    await API.post("/posts", { text, imageUrl });
+
     setText("");
+    setImage(null);
     fetchPosts();
   };
 
@@ -25,37 +36,42 @@ const Feed = () => {
     fetchPosts();
   };
 
-  const commentPost = async (id) => {
-    const comment = prompt("Enter comment");
-    if (!comment) return;
-
-    await API.post(`/posts/${id}/comment`, { text: comment });
-    fetchPosts();
-  };
-
   return (
-    <div>
-      <h2>Feed</h2>
+    <div className="feed-container">
 
-      <input
-        placeholder="Write something..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <button onClick={createPost}>Post</button>
+      <div className="create-post">
+        <input
+          placeholder="What's on your mind?"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+
+        <input
+          type="file"
+          onChange={(e) => setImage(e.target.files[0])}
+        />
+
+        <button onClick={createPost}>Post</button>
+      </div>
 
       {posts.map((p) => (
-        <div key={p._id} style={{ border: "1px solid gray", margin: "10px" }}>
-          <h4>{p.username}</h4>
-          <p>{p.text}</p>
+        <div key={p._id} className="post-card">
 
-          {p.imageUrl && <img src={p.imageUrl} width="200" alt="" />}
+          <div className="post-header">{p.username}</div>
 
-          <p>❤️ {p.likes.length}</p>
-          <button onClick={() => likePost(p._id)}>Like</button>
+          <div className="post-content">{p.text}</div>
 
-          <p>💬 {p.comments.length}</p>
-          <button onClick={() => commentPost(p._id)}>Comment</button>
+          {p.imageUrl && (
+            <img src={p.imageUrl} alt="" className="post-image" />
+          )}
+
+          <div className="post-actions">
+            <button onClick={() => likePost(p._id)}>
+              ❤️ {p.likes.length}
+            </button>
+            <span>💬 {p.comments.length}</span>
+          </div>
+
         </div>
       ))}
     </div>
